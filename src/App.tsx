@@ -8,6 +8,7 @@ import Attend from './routes/attend';
 import Course from './routes/course';
 import NoticeBoard from './routes/notice-board';
 import Record from './routes/record';
+import AttendForm from './routes/attend-form';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "noticeboard",
         element: <NoticeBoard />,
+      },
+      {
+        path: "/attend/attend-form",
+        element: <AttendForm />,
       },
       //공지사항, 갤러리
     ],
