@@ -7,10 +7,9 @@ const Wrapper = styled.div``;
 
 
 const Menu = styled.div`
-    width: 100vw;
-    padding-top: 30px;
-    height: auto;
     display: flex;
+    width: 100vw;
+    height: auto;
     align-items: start;
     gap: 40px;
     justify-content: start;
@@ -19,7 +18,7 @@ const Menu = styled.div`
     overflow: hidden;
     border-bottom: 1px solid #6e6e6e;
     transition: display 0.4s ease ;
-    
+    z-index: 100;
     background-color: white;
 
 `;
@@ -38,14 +37,14 @@ const MenuLine = styled.div`
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    margin: 0px;
+    margin-top: 40px;
     padding: 10px 30px ;
     gap: 20px;
     height: 60px;
     transition: height 0.3s ease;
 
     &:hover {
-        height: 240px;
+        height: 200px;
         border-top: 1px solid black;
     }
 `;
@@ -54,9 +53,9 @@ const MenuLine = styled.div`
 
 const HomeLink = styled(Link)`
     display: flex;
-    font-size: 40px;
-    padding: 0px 7vw;
-    font-weight: bold;
+    height: 100px;
+    margin: 20px 30px;
+    margin-left: 100px;
     text-decoration: none;
     color: black;
 `;
@@ -84,12 +83,11 @@ const DetailLink = styled(Link)`
 const EndDiv = styled.div`
     display: flex;
     width: 100vw;
-    height: 160px;
+    height: 100px;
     flex-direction: column;
     align-items: center;
     justify-content: end;
     background-color: #515b61;
-    margin-top: 50px;
     padding-bottom: 10px;
 `;
 
@@ -100,9 +98,65 @@ const Span = styled.span`
 
 `;
 
+const MobileMenuBtn = styled.div`
+    margin-top: 20px;
+    margin-right: 20px;
+    height: 40px;
+    width: 40px;
+    transition: transform 0.3s ease;
+    z-index: 100;
+`;
+
+const MobileMenu = styled.div`
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    right: 0px;
+    height: 100vh;
+    width: 70vw;
+    gap: 50px;
+    background-color: white;
+    opacity: 1;
+    padding-top: 80px;
+    z-index: 99;
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    `;
+
+const MobOpenLink = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 20px;
+    transition: height 0.3s ease;
+    overflow: hidden;
+`;
+
+
+const MobLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: 500;
+    padding-left: 10vw;
+`;
+
+const Open = styled.div`
+    font-size: 32px;
+    font-weight: 600;
+    padding-left: 10vw;
+
+`;
 
 export default function Layout() {
     const [opacity, setOpacity] = useState(1);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [MobShowInfo, setMobShowInfo] = useState(false);
+    const [MobShowPost, setMobShowPost] = useState(false);
 
     useEffect(() => {
         const threshold = 100; // 표시/숨김을 토글할 스크롤 위치
@@ -123,49 +177,140 @@ export default function Layout() {
         };
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const handleMobileMenu = () => {
+        setShowMobileMenu(!showMobileMenu);
+    }
+
+    const handleMobShowInfo = () => {
+        setMobShowInfo(!MobShowInfo);
+    }
+
+    const handleMobShowPost = () => {
+        setMobShowPost(!MobShowPost);
+    }
 
     return (
 
         <Wrapper>
             <Menu style={{
-                opacity: opacity,
-                visibility: opacity ? 'visible' : 'hidden',
-                transition: 'opacity 0.2s ease, visibility 0.2s ease'
+                opacity: windowWidth > 1200 ? opacity : 1,
+                visibility: opacity ? 'visible' : windowWidth > 1200 ? 'hidden' : 'visible',
+                transition: 'opacity 0.2s ease, visibility 0.2s ease',
+                justifyContent: windowWidth < 1200 ? 'space-between' : 'start',
             }}>
 
-                <HomeLink to="/">화이트마라톤</HomeLink>
-                <MenuBar>
-                    <MenuLine>
-                        <StyledLink to="/information">대회안내</StyledLink>
-                        <DetailLink to="/information">대회개요</DetailLink>
-                        <DetailLink to="/information">회장인사말</DetailLink>
-                        <DetailLink to="/information">참가자 유의사항</DetailLink>
-                        <DetailLink to="/information">찾아오시는길</DetailLink>
-                        <DetailLink to="/information">시상 및 기념품</DetailLink>
-                    </MenuLine>
-                    <MenuLine>
-                        <StyledLink to="/attend">참가신청</StyledLink>
-                        <DetailLink to="/attend">개인 참가신청</DetailLink>
-                        <DetailLink to="/attend">단체 참가신청</DetailLink>
-                        <DetailLink to="/attend">참가 확인/수정</DetailLink>
-                    </MenuLine>
-                    <MenuLine>
-                        <StyledLink to="/course">코스안내</StyledLink>
-                        <DetailLink to="/course">코스도</DetailLink>
-                    </MenuLine>
-                    <MenuLine>
-                        <StyledLink to="/record">대회기록</StyledLink>
-                        <DetailLink to="/record">기록조회</DetailLink>
-                    </MenuLine>
-                    <MenuLine>
-                        <StyledLink to="/noticeboard">게시판</StyledLink>
-                        <DetailLink to="/noticeboard">공지사항</DetailLink>
-                        <DetailLink to="/noticeboard">자유게시판</DetailLink>
-                        <DetailLink to="/noticeboard">대회 갤러리</DetailLink>
-                    </MenuLine>
-                </MenuBar>
+                <HomeLink to="/" style={{
+                    height: windowWidth < 1200 ? '80px' : '100px',
+                    margin: windowWidth < 1200 ? '20px 0px' : '20px 7vw',
+                    marginLeft: windowWidth < 1200 ? '25px' : '12vw',
+                }} ><img src="/logo.jpg" /></HomeLink>
+                {windowWidth > 1200 &&
+                    <MenuBar>
+                        <MenuLine>
+                            <StyledLink to="/information">대회안내</StyledLink>
+                            <DetailLink to="/information">대회개요</DetailLink>
+                            <DetailLink to="/information">참가자 유의사항</DetailLink>
+                            <DetailLink to="/information">찾아오시는길</DetailLink>
+                            <DetailLink to="/information">시상 및 기념품</DetailLink>
+                        </MenuLine>
+                        <MenuLine>
+                            <StyledLink to="/attend">참가신청</StyledLink>
+                            <DetailLink to="/attend">개인/단체 참가신청</DetailLink>
+                            <DetailLink to="/attend">참가 확인/수정</DetailLink>
+                        </MenuLine>
+                        <MenuLine>
+                            <StyledLink to="/course">코스안내</StyledLink>
+                            <DetailLink to="/course">코스도</DetailLink>
+                        </MenuLine>
+                        <MenuLine>
+                            <StyledLink to="/record">대회기록</StyledLink>
+                            <DetailLink to="/record">기록조회</DetailLink>
+                        </MenuLine>
+                        <MenuLine>
+                            <StyledLink to="/noticeboard">게시판</StyledLink>
+                            <DetailLink to="/noticeboard">공지사항</DetailLink>
+                            <DetailLink to="/noticeboard">자유게시판</DetailLink>
+                            <DetailLink to="/noticeboard">대회 갤러리</DetailLink>
+                        </MenuLine>
+                    </MenuBar>
+                }
+                {windowWidth < 1200 &&
+                    <MobileMenuBtn style={{
+                        transform: `${showMobileMenu ? `translateX(-${windowWidth * 7 / 10 - 80}px) rotate(180deg)` : 'rotate(0deg)'}`
+                    }} onClick={handleMobileMenu}>
+                        <svg data-slot="icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clipRule="evenodd" fillRule="evenodd" d="M10.72 11.47a.75.75 0 0 0 0 1.06l7.5 7.5a.75.75 0 1 0 1.06-1.06L12.31 12l6.97-6.97a.75.75 0 0 0-1.06-1.06l-7.5 7.5Z" />
+                            <path clipRule="evenodd" fillRule="evenodd" d="M4.72 11.47a.75.75 0 0 0 0 1.06l7.5 7.5a.75.75 0 1 0 1.06-1.06L6.31 12l6.97-6.97a.75.75 0 0 0-1.06-1.06l-7.5 7.5Z" />
+                        </svg>
+                    </MobileMenuBtn>
+                }
+                <MobileMenu style={{
+                    transform: showMobileMenu ? 'translateX(0px)' : 'translateX(70vw)',
+                    boxShadow: showMobileMenu ? '5px 5px 50px #888888' : 'none',
+                }}>
+                    <MobOpenLink style={{
+                        height: MobShowInfo ? '220px' : '30px',
+                    }}>
+                        <Open onClick={handleMobShowInfo}>대회안내</Open>
+                        <MobLink
+                            to="/information"
+                            style={{
+                                visibility: MobShowInfo ? 'visible' : 'hidden',
+                            }}>대회개요</MobLink>
+                        <MobLink
+                            to="/information"
+                            style={{
+                                visibility: MobShowInfo ? 'visible' : 'hidden',
+                            }}>참가자 유의사항</MobLink>
+                        <MobLink
+                            to="/information"
+                            style={{
+                                visibility: MobShowInfo ? 'visible' : 'hidden',
+                            }}>찾아오시는길</MobLink>
+                        <MobLink
+                            to="/information"
+                            style={{
+                                visibility: MobShowInfo ? 'visible' : 'hidden',
+                            }}>시상 및 기념품</MobLink>
+                    </MobOpenLink>
+
+                    <MobLink to="/attend/attend-form">참가신청</MobLink>
+                    <MobLink to="/attend">참가 확인/수정</MobLink>
+                    <MobLink to="/course">코스안내</MobLink>
+                    <MobLink to="/record">대회기록 조회</MobLink>
+
+                    <MobOpenLink style={{
+                        height: MobShowPost ? '220px' : '30px',
+                    }}>
+                        <Open onClick={handleMobShowPost}>게시판</Open>
+                        <MobLink to="/noticeboard" style={{
+                            visibility: MobShowPost ? 'visible' : 'hidden',
+                        }}>공지사항</MobLink>
+                        <MobLink to="/noticeboard" style={{
+                            visibility: MobShowPost ? 'visible' : 'hidden',
+                        }}>자유게시판</MobLink>
+                        <MobLink to="/noticeboard" style={{
+                            visibility: MobShowPost ? 'visible' : 'hidden',
+                        }}>대회 갤러리</MobLink>
+                    </MobOpenLink>
+
+                </MobileMenu>
             </Menu>
-            <GhoastDiv></GhoastDiv>
+            <GhoastDiv style={{
+                height: windowWidth < 1200 ? '120px' : '140px',
+            }}></GhoastDiv>
             <Outlet />
             <EndDiv>
                 <Span>2024 경인아라뱃길 세계한인 마라톤 대회</Span>

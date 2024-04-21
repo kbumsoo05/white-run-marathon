@@ -8,6 +8,7 @@ import Attend from './routes/attend';
 import Course from './routes/course';
 import NoticeBoard from './routes/notice-board';
 import Record from './routes/record';
+import CheckoutPage from './checkout';
 import AttendForm from './routes/attend-form';
 
 const router = createBrowserRouter([
@@ -43,14 +44,17 @@ const router = createBrowserRouter([
         path: "/attend/attend-form",
         element: <AttendForm />,
       },
-      //공지사항, 갤러리
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
+      },
     ],
   },
 ]);
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  body {     background-color: white;     color: black;     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;   }
+  body {     background-color: white ;     color: black;     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;   }
 `;
 
 function App() {

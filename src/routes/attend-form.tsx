@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DaumPost from '../components/daum-post';
+import { Link } from 'react-router-dom';
 
 interface FormData {
     agree: boolean;
@@ -16,16 +17,10 @@ interface FormData {
     createdAt?: number;
 }
 
-const HeadImage = styled.img`
-
-    width: 100%;
-    height: auto;
-    margin: 60px 0px;
-    box-shadow: 5px 5px 5px #888888;
-`;
 
 const H1 = styled.h1`
     font-size: 50px;
+    margin-top: 200px;
     margin-bottom: 50px;
     font-weight: bold;
     color: #333;
@@ -41,6 +36,7 @@ const Span = styled.span`
 
 const Container = styled.div`
   padding: 20px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,7 +147,7 @@ const SubmitButton = styled(Button)`
 
 `;
 
-function ApplicationForm() {
+export default function AttendForm() {
     const [formData, setFormData] = useState<FormData>({
         agree: false,
         name: '',
@@ -196,7 +192,7 @@ function ApplicationForm() {
 
     return (
         <Container>
-            <HeadImage src="https://cdn.imweb.me/thumbnail/20240327/fd5c198ef1500.jpg" alt="참가신청 이미지" />
+
             <H1>참가신청</H1>
             <Form onSubmit={handleSubmit}>
                 <ScrollBox>
@@ -324,25 +320,24 @@ function ApplicationForm() {
                     placeholder="이메일"
                 />
                 <Span>코스 선택</Span>
-                <LineDiv>
-                    {["하프", "10km", "5km"].map((category, index) => (
-                        <Label key={index}>
-                            <Checkbox
-                                type="radio"
-                                name="category"
-                                value={category}
-                                checked={formData.category === category}
-                                onChange={handleChange}
-                                required
-                            />
-                            {category}
-                        </Label>
-                    ))}
-                </LineDiv>
+                {["10km", "5km"].map((category, index) => (
+                    <Label key={index}>
+                        <Checkbox
+                            type="radio"
+                            name="category"
+                            value={category}
+                            checked={formData.category === category}
+                            onChange={handleChange}
+                            required
+                        />
+                        {category}
+                    </Label>
+                ))}
                 <SubmitButton type='submit'>다음으로</SubmitButton>
+                <Link to="/checkout">결제하기 dev.ver</Link>
             </Form>
         </Container>
     );
 }
 
-export default ApplicationForm;
+
