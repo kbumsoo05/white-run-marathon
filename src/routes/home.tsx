@@ -28,7 +28,9 @@ const HeadImg = styled.img`
 const BodyImg = styled.img`
     width: 80%;
     margin: 50px 0px;
-
+    @media (max-width: 1200px) {
+        width: 100%;
+    }
 `;
 
 const HeadImgDiv = styled.div`
@@ -46,7 +48,7 @@ const Dots = styled.div`
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-    z-index: 98;
+    z-index: 96;
 `;
 
 const Dot = styled.div`
@@ -54,7 +56,7 @@ const Dot = styled.div`
     margin: 0 5px;
     cursor: pointer;
     border-radius: 50%;
-    border: 3px solid white;
+    border: 2px solid white;
     width: 7px;
     height: 7px;
     

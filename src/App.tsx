@@ -8,7 +8,7 @@ import Attend from './routes/attend';
 import Course from './routes/course';
 import NoticeBoard from './routes/notice-board';
 import Record from './routes/record';
-import CheckoutPage from './checkout';
+import CheckoutPage from './routes/checkout';
 import AttendForm from './routes/attend-form';
 
 const router = createBrowserRouter([
@@ -46,6 +46,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "/success",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "/fail",
         element: <CheckoutPage />,
       },
     ],

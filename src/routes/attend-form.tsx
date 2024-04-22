@@ -78,6 +78,7 @@ const Input = styled.input`
 const LineDiv = styled.div`
     display: flex;  
     align-items: center;
+    gap: 10px;
 `;
 
 const DateInput = styled.input.attrs({ type: 'date' })`
@@ -98,7 +99,7 @@ const DateInput = styled.input.attrs({ type: 'date' })`
 `;
 
 const Label = styled.label`
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 `;
 
 const Button = styled.button`
@@ -141,6 +142,8 @@ const SubmitButton = styled(Button)`
     font-size: 20px;
     font-weight: 500;
     border-radius: 10px;
+    color: white;
+    background-color: gray;
     &:hover {
         background-color: #95b3d1;
     }
@@ -162,6 +165,7 @@ export default function AttendForm() {
         createdAt: Date.now()
     });
     const [popup, setPopup] = useState(false);
+    //const [courseCost, setCourseCost] = useState(0);
 
     // 팝업 열고 닫기
 
@@ -321,20 +325,25 @@ export default function AttendForm() {
                 />
                 <Span>코스 선택</Span>
                 {["10km", "5km"].map((category, index) => (
-                    <Label key={index}>
-                        <Checkbox
-                            type="radio"
-                            name="category"
-                            value={category}
-                            checked={formData.category === category}
-                            onChange={handleChange}
-                            required
-                        />
-                        {category}
-                    </Label>
+                    <LineDiv>
+                        <Label key={index}>
+                            <Checkbox
+                                type="radio"
+                                name="category"
+                                value={category}
+                                checked={formData.category === category}
+                                onChange={handleChange}
+                                required
+                            />
+                            {category}
+                        </Label>
+                        <Span style={{
+                            margin: '0px',
+                        }}>{index === 0 ? "35000원" : "30000원"}</Span>
+                    </LineDiv>
                 ))}
                 <SubmitButton type='submit'>다음으로</SubmitButton>
-                <Link to="/checkout">결제하기 dev.ver</Link>
+                <Link to="/checkout">다음으로 dev.ver</Link>
             </Form>
         </Container>
     );

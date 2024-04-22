@@ -18,7 +18,7 @@ const Menu = styled.div`
     overflow: hidden;
     border-bottom: 1px solid #6e6e6e;
     transition: display 0.4s ease ;
-    z-index: 100;
+    z-index: 97;
     background-color: white;
 
 `;
@@ -99,6 +99,10 @@ const Span = styled.span`
 `;
 
 const MobileMenuBtn = styled.div`
+    display: flex;
+    right: 0px;
+    position: fixed;
+    color: #ab838a;
     margin-top: 20px;
     margin-right: 20px;
     height: 40px;
@@ -116,7 +120,7 @@ const MobileMenu = styled.div`
     right: 0px;
     height: 100vh;
     width: 70vw;
-    gap: 50px;
+    gap: 30px;
     background-color: white;
     opacity: 1;
     padding-top: 80px;
@@ -139,16 +143,19 @@ const MobOpenLink = styled.div`
 const MobLink = styled(Link)`
     text-decoration: none;
     color: black;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     padding-left: 10vw;
 `;
 
 const Open = styled.div`
-    font-size: 32px;
+    display: flex;
+    width: 100%;
+    font-size: 26px;
     font-weight: 600;
     padding-left: 10vw;
-
+    justify-content: start;
+    align-items: center;
 `;
 
 export default function Layout() {
@@ -183,6 +190,8 @@ export default function Layout() {
         };
 
         window.addEventListener('resize', handleResize);
+        console.log(windowWidth);
+
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -246,77 +255,104 @@ export default function Layout() {
                         </MenuLine>
                     </MenuBar>
                 }
-                {windowWidth < 1200 &&
-                    <MobileMenuBtn style={{
-                        transform: `${showMobileMenu ? `translateX(-${windowWidth * 7 / 10 - 80}px) rotate(180deg)` : 'rotate(0deg)'}`
-                    }} onClick={handleMobileMenu}>
-                        <svg data-slot="icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clipRule="evenodd" fillRule="evenodd" d="M10.72 11.47a.75.75 0 0 0 0 1.06l7.5 7.5a.75.75 0 1 0 1.06-1.06L12.31 12l6.97-6.97a.75.75 0 0 0-1.06-1.06l-7.5 7.5Z" />
-                            <path clipRule="evenodd" fillRule="evenodd" d="M4.72 11.47a.75.75 0 0 0 0 1.06l7.5 7.5a.75.75 0 1 0 1.06-1.06L6.31 12l6.97-6.97a.75.75 0 0 0-1.06-1.06l-7.5 7.5Z" />
-                        </svg>
-                    </MobileMenuBtn>
+                {windowWidth < 1200 ?
+                    <>
+                        <MobileMenuBtn style={{
+                            transform: `${showMobileMenu ? `translateX(-${windowWidth * 7 / 10 - 80}px) rotate(180deg)` : `translateX(0px) rotate(0deg)`}`
+                        }} onClick={handleMobileMenu}>
+                            <svg data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" />
+                            </svg>
+                        </MobileMenuBtn>
+                        <MobileMenu style={{
+                            transform: showMobileMenu ? 'translateX(0px)' : 'translateX(70vw)',
+                            boxShadow: showMobileMenu ? '5px 5px 50px #888888' : 'none',
+                        }}>
+                            <MobOpenLink style={{
+                                height: MobShowInfo ? '220px' : '40px',
+                            }}>
+                                <Open onClick={handleMobShowInfo}>
+                                    대회안내
+                                    <MobileMenuBtn style={{
+                                        position: 'relative',
+                                        padding: '0px',
+                                        margin: '0px',
+                                        transform: MobShowInfo ? 'rotate(0deg)' : 'rotate(-180deg)',
+                                    }}>
+                                        <svg data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path clipRule="evenodd" fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
+                                        </svg>
+                                    </MobileMenuBtn>
+                                </Open>
+                                <MobLink
+                                    to="/information"
+                                    style={{
+                                        visibility: MobShowInfo ? 'visible' : 'hidden',
+                                    }}>대회개요</MobLink>
+                                <MobLink
+                                    to="/information"
+                                    style={{
+                                        visibility: MobShowInfo ? 'visible' : 'hidden',
+                                    }}>참가자 유의사항</MobLink>
+                                <MobLink
+                                    to="/information"
+                                    style={{
+                                        visibility: MobShowInfo ? 'visible' : 'hidden',
+                                    }}>찾아오시는길</MobLink>
+                                <MobLink
+                                    to="/information"
+                                    style={{
+                                        visibility: MobShowInfo ? 'visible' : 'hidden',
+                                    }}>시상 및 기념품</MobLink>
+                            </MobOpenLink>
+
+                            <MobLink to="/attend/attend-form">참가신청</MobLink>
+                            <MobLink to="/attend">참가 확인/수정</MobLink>
+                            <MobLink to="/course">코스안내</MobLink>
+                            <MobLink to="/record">대회기록 조회</MobLink>
+
+                            <MobOpenLink style={{
+                                height: MobShowPost ? '220px' : '40px',
+                            }}>
+                                <Open onClick={handleMobShowPost}>게시판
+                                    <MobileMenuBtn style={{
+                                        position: 'relative',
+                                        padding: '0px',
+                                        margin: '0px',
+                                        transform: MobShowPost ? 'rotate(0deg)' : 'rotate(-180deg)',
+                                    }}>
+                                        <svg data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path clipRule="evenodd" fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
+                                        </svg>
+                                    </MobileMenuBtn>
+                                </Open>
+                                <MobLink to="/noticeboard" style={{
+                                    visibility: MobShowPost ? 'visible' : 'hidden',
+                                }}>공지사항</MobLink>
+                                <MobLink to="/noticeboard" style={{
+                                    visibility: MobShowPost ? 'visible' : 'hidden',
+                                }}>자유게시판</MobLink>
+                                <MobLink to="/noticeboard" style={{
+                                    visibility: MobShowPost ? 'visible' : 'hidden',
+                                }}>대회 갤러리</MobLink>
+                            </MobOpenLink>
+
+                        </MobileMenu>
+                    </>
+                    :
+                    null
                 }
-                <MobileMenu style={{
-                    transform: showMobileMenu ? 'translateX(0px)' : 'translateX(70vw)',
-                    boxShadow: showMobileMenu ? '5px 5px 50px #888888' : 'none',
-                }}>
-                    <MobOpenLink style={{
-                        height: MobShowInfo ? '220px' : '30px',
-                    }}>
-                        <Open onClick={handleMobShowInfo}>대회안내</Open>
-                        <MobLink
-                            to="/information"
-                            style={{
-                                visibility: MobShowInfo ? 'visible' : 'hidden',
-                            }}>대회개요</MobLink>
-                        <MobLink
-                            to="/information"
-                            style={{
-                                visibility: MobShowInfo ? 'visible' : 'hidden',
-                            }}>참가자 유의사항</MobLink>
-                        <MobLink
-                            to="/information"
-                            style={{
-                                visibility: MobShowInfo ? 'visible' : 'hidden',
-                            }}>찾아오시는길</MobLink>
-                        <MobLink
-                            to="/information"
-                            style={{
-                                visibility: MobShowInfo ? 'visible' : 'hidden',
-                            }}>시상 및 기념품</MobLink>
-                    </MobOpenLink>
 
-                    <MobLink to="/attend/attend-form">참가신청</MobLink>
-                    <MobLink to="/attend">참가 확인/수정</MobLink>
-                    <MobLink to="/course">코스안내</MobLink>
-                    <MobLink to="/record">대회기록 조회</MobLink>
-
-                    <MobOpenLink style={{
-                        height: MobShowPost ? '220px' : '30px',
-                    }}>
-                        <Open onClick={handleMobShowPost}>게시판</Open>
-                        <MobLink to="/noticeboard" style={{
-                            visibility: MobShowPost ? 'visible' : 'hidden',
-                        }}>공지사항</MobLink>
-                        <MobLink to="/noticeboard" style={{
-                            visibility: MobShowPost ? 'visible' : 'hidden',
-                        }}>자유게시판</MobLink>
-                        <MobLink to="/noticeboard" style={{
-                            visibility: MobShowPost ? 'visible' : 'hidden',
-                        }}>대회 갤러리</MobLink>
-                    </MobOpenLink>
-
-                </MobileMenu>
             </Menu>
             <GhoastDiv style={{
                 height: windowWidth < 1200 ? '120px' : '140px',
             }}></GhoastDiv>
             <Outlet />
             <EndDiv>
-                <Span>2024 경인아라뱃길 세계한인 마라톤 대회</Span>
+                <Span>2024 화이트런 세계한인 마라톤 대회</Span>
                 <Span>이용약관</Span>
                 <Span>개인정보처리방침</Span>
-                <Span>Copyright C 2024 세계 한인 아라뱃길 마라톤대회 All right reserved</Span>
+                <Span>화이트런 주소풍 최종화 이사 010.5685.1802| k-sopung@naver.com</Span>
             </EndDiv>
         </Wrapper>
     );
