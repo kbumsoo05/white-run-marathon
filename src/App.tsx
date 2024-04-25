@@ -8,8 +8,10 @@ import Attend from './routes/attend';
 import Course from './routes/course';
 import NoticeBoard from './routes/notice-board';
 import Record from './routes/record';
-import CheckoutPage from './routes/checkout';
 import AttendForm from './routes/attend-form';
+import { SuccessPage } from './routes/success';
+import { FailPage } from './routes/fail';
+import { CheckoutPage } from './routes/checkout';
 
 const router = createBrowserRouter([
   {
@@ -50,11 +52,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/success",
-        element: <CheckoutPage />,
+        element: <SuccessPage />,
       },
       {
         path: "/fail",
-        element: <CheckoutPage />,
+        element: <FailPage />,
       },
     ],
   },
