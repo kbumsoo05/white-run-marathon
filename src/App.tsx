@@ -12,6 +12,10 @@ import AttendForm from './routes/attend-form';
 import { SuccessPage } from './routes/success';
 import { FailPage } from './routes/fail';
 import { CheckoutPage } from './routes/checkout';
+import Login from './routes/login';
+import AdminLayout from './components/admin-layout';
+import AdminPage from './routes/admin-page';
+import ProtectedRoute from './components/protected-route';
 
 const router = createBrowserRouter([
   {
@@ -58,8 +62,27 @@ const router = createBrowserRouter([
         path: "/fail",
         element: <FailPage />,
       },
+      {
+        path: "/login",
+        element: <Login />,
+      },
     ],
   },
+
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <AdminPage />
+      },
+    ]
+  }
 ]);
 
 const GlobalStyle = createGlobalStyle`

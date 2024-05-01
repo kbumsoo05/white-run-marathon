@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { MainColor } from "../components/color";
 
 const Wrppper = styled.div`
     display: flex;
@@ -38,7 +39,7 @@ const HeadImgDiv = styled.div`
     justify-content: center;
     align-items: end;
     width: 100%;
-    background-color: #ffc0cb;
+    background-color: ${MainColor};
     overflow: hidden;
     position: relative; // Parent relative positioning
     height: 600px; // Set a fixed height for the container

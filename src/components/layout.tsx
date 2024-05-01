@@ -44,7 +44,7 @@ const MenuLine = styled.div`
     transition: height 0.3s ease;
 
     &:hover {
-        height: 200px;
+        height: 220px;
         border-top: 1px solid black;
     }
 `;
@@ -66,7 +66,7 @@ const StyledLink = styled(Link)`
   color: black;
   font-weight: 500;
   font-size: 22px;
-  margin-bottom: 20px;
+  margin-bottom: 47px;
 `;
 
 const DetailLink = styled(Link)`
@@ -350,8 +350,19 @@ export default function Layout() {
             <Outlet />
             <EndDiv>
                 <Span>2024 화이트런 세계한인 마라톤 대회</Span>
-                <Span>이용약관</Span>
-                <Span>개인정보처리방침</Span>
+                <div style={{
+                    display: 'flex',
+                    gap: '6px',
+
+                }}>
+                    <Span>이용약관</Span>
+                    <Span>개인정보처리방침</Span>
+                    <Link to={"/login"} style={{
+                        textDecoration: 'none',
+                    }}>
+                        <Span>관리자 로그인</Span>
+                    </Link>
+                </div>
                 <Span>화이트런 주소풍 최종화 이사 010.5685.1802| k-sopung@naver.com</Span>
             </EndDiv>
         </Wrapper>

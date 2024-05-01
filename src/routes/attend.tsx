@@ -62,14 +62,14 @@ export default function Attend() {
                 // opacity: opacity,
                 // transform: `translateX(${show ? '0px' : '-300px'})`,
             }}>
-                <StyledLink to="/attend/attend-form">개인 참가신청</StyledLink>
+                <StyledLink to="/attend/attend-form">참가신청</StyledLink>
             </LinkDiv>
             <LinkDiv style={{
                 backgroundImage: "url(https://cdn.imweb.me/thumbnail/20240314/dce6b374dd86f.jpg)",
                 // opacity: opacity2,
                 // transform: `translateX(${show2 ? '0px' : '-300px'})`,
             }}>
-                <StyledLink to="/attend/attend-form">단체 참가신청</StyledLink>
+                <StyledLink to="/attend/attend-form">참가 확인/수정</StyledLink>
             </LinkDiv>
         </Wrapper>
     )

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode"
 import { styled } from "styled-components"
 
@@ -18,6 +19,7 @@ const DaumPostContainer = styled.div`
     top: 50%;
     transform : translate(-50%, -50%);
 
+
 `
 const PostHeader = styled.div`
     display: flex;
@@ -33,6 +35,7 @@ const Close = styled.div`
 `;
 
 const H1 = styled.h1`
+    margin-left: 10px;
     font-size: 20px;
     color: #fff;
 `;
@@ -44,6 +47,21 @@ const H1 = styled.h1`
 
 
 export default function DaumPost(props: any) {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+        console.log(windowWidth);
+
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
     /* 아래 함수로 들어오는 파라미터 (data)의 정체가 무엇일까를
@@ -70,11 +88,11 @@ export default function DaumPost(props: any) {
         console.log(data.zonecode)
 
         // 선택한 주소값을 상태값으로 설정
-        props.setAddress({
-            ...props,
+        props.setAddress((prev: FormData) => ({
+            ...prev,
             address: fullAddress,
             zonecode: zonecode,
-        })
+        }))
 
         // 팝업창 닫기(팝업창 'X' 표시)
         props.handleComplete();
@@ -82,7 +100,10 @@ export default function DaumPost(props: any) {
     }
     return (
         <DaumPostBackground>
-            <DaumPostContainer>
+            <DaumPostContainer style={{
+                width: windowWidth > 500 ? "500px" : "100%"
+
+            }}>
                 <PostHeader>
                     <H1>주소 검색</H1>
                     <Close onClick={() => { props.handleComplete() }}>
