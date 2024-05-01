@@ -19,6 +19,7 @@ export default function AdminPage() {
 
     return (
         <Wrapper>
+            {page ? null : <Status />}
             {page === "1" && <List />}
             {page === "5" && <Status />}
         </Wrapper>

@@ -76,7 +76,7 @@ export default function Login() {
             setLoading(true);
             const credentials = await signInWithEmailAndPassword(auth, email, password);
             console.log(credentials.user);
-            navigate("/admin");
+            navigate("/admin?page=5");
         } catch (e) {
             if (e instanceof FirebaseError) {
                 console.log(e.message);

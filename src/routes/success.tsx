@@ -92,7 +92,7 @@ export function SuccessPage() {
                     </div>
                 </div>
                 <button onClick={confirmPayment} style={{ marginTop: "20px", fontSize: "16px", padding: "10px 20px" }}>
-                    결제 확인
+                    결제 완료 처리
                 </button>
                 <div className="p-grid-col">
                     <Link to="https://docs.tosspayments.com/guides/payment-widget/integration">

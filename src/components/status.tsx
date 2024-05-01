@@ -149,7 +149,10 @@ export default function Status() {
                 <PieChart width={400} height={300}>
                     <Pie dataKey="value" isAnimationActive={true} data={datas.groupType} cx={200} cy={150} outerRadius={80} fill="#8884d8" label>
                         {datas.groupType.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            <>
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                {console.log(entry)}
+                            </>
                         ))}
                     </Pie>
                     <Tooltip />
@@ -158,7 +161,10 @@ export default function Status() {
                 <PieChart width={400} height={300}>
                     <Pie dataKey="value" isAnimationActive={true} data={datas.paymentStatus} cx={200} cy={150} outerRadius={80} fill="#8884d8" label>
                         {datas.paymentStatus.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            <>
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                {console.log(entry)}
+                            </>
                         ))}
                     </Pie>
                     <Tooltip />
